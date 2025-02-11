@@ -2,19 +2,18 @@ class Solution {
 public:
     void rotate(vector<int>& nums, int k) {
         int n = nums.size();
-        if(k % n == 0)
-            return;
+        k %= n;
 
-        k = k % n;
-        vector<int> first(nums.begin(), nums.begin() + n - k);
-        vector<int> last(nums.begin() + n - k, nums.end());
+        reverse(nums, 0, n - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, n - 1);
+    }
 
-        nums.clear();
-        for(int i=0; i<last.size(); i++) {
-            nums.emplace_back(last[i]);
-        }
-        for(int i=0; i<first.size(); i++) {
-            nums.emplace_back(first[i]);
+    void reverse(vector<int>& nums, int left, int right) {
+        while(left < right) {
+            swap(nums[left], nums[right]);
+            left++;
+            right--;
         }
     }
 };
